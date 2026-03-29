@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import "./styles/App.css"
+import PokemonCard from "./components/pokemonCard"
 
 function App() {
     const [pokemons, setPokemons] = useState([])
@@ -16,9 +17,11 @@ function App() {
             <div>
                 <h1>Pokedex</h1>
                 {pokemons.map((pokemon, index) => (
-                    <div key={index}>
-                        <p>{pokemon.name}</p>
-                    </div>
+                    <PokemonCard
+                        key={index}
+                        name={pokemon.name}
+                        image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`}
+                    />
                 ))}
             </div>
         </>
