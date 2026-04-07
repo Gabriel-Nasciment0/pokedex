@@ -44,18 +44,20 @@ export default function App() {
                     onChange={(e) => setSearch(e.target.value)}
                 />
             </div>
-            {filteredPokemons.map((pokemon) => {
-                const id = getIdFromUrl(pokemon.url)
-                return (
-                    <PokemonCard
-                        key={pokemon.name}
-                        name={pokemon.name}
-                        image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
-                        onClick={() => setSelectedPokemonName(pokemon.name)}
-                    />
-                )
-            })}
-            
+            <div className="grid">
+                {filteredPokemons.map((pokemon) => {
+                    const id = getIdFromUrl(pokemon.url)
+                    return (
+                        <PokemonCard
+                            key={pokemon.name}
+                            name={pokemon.name}
+                            image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
+                            onClick={() => setSelectedPokemonName(pokemon.name)}
+                        />
+                    )
+                })}
+            </div>
+
             {selectedPokemonData && (
                 <div className="modalOverlay">
                     <div className="modalContent">
