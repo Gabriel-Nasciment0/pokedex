@@ -1,28 +1,109 @@
-.modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+body {
+    background: #f5f7fb;
+    font-family: Arial, sans-serif;
+}
 
+input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+.app {
     display: flex;
-    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* LEFT */
+.left {
+    flex: 2;
+}
+.left h1 {
+    text-align: center;
+}
+/* RIGHT */
+.header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.modalContent {
-    background: white;
+.header button {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+.right {
+    flex: 1;
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 300px;
-    width: 100%;
+    border-radius: 20px;
+    color: #fff;
 }
 
+.right h2 {
+    text-align: center;
+}
+
+.right img {
+    width: 180px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* GRID */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 16px;
-    padding: 20px;
+    margin-top: 20px;
+}
+
+/* IMG */
+.right img {
+    width: 90px;
+
+    display: block;
+    margin: 0 auto;
+}
+
+/* STATS */
+.statRow {
+    margin-bottom: 10px;
+}
+
+.statBar {
+    background: rgba(255, 255, 255, 0.3);
+    height: 8px;
+    border-radius: 10px;
+}
+
+.statFill {
+    background: #fff;
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .app {
+        flex-direction: column;
+    }
+
+    @media (max-width: 768px) {
+        .right {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 25px 25px 0 0;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+    }
+    .right img {
+        width: 150px;
+    }
 }

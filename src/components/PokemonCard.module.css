@@ -1,12 +1,34 @@
 .card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 110px;
+    border-radius: 16px;
+    padding: 16px;
     text-align: center;
-
-    transition: 0.2s;
     cursor: pointer;
+    transition: 0.25s;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    color: #fff;
 }
-.card:hover {
-    transform: scale(1.05);
+
+.card img {
+    width: 80px;
+}
+
+.number {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.name {
+    margin-top: 8px;
+    font-weight: bold;
+}
+.types {
+    margin-top: 10px;
+}
+
+.type {
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    margin: 2px;
+    background: rgba(255, 255, 255, 0.3);
 }
