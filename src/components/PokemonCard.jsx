@@ -20,7 +20,15 @@ const typeColors = {
     steel: "#b8b8d0",
 }
 
-export default function PokemonCard({ id, name, image, types, onClick }) {
+export default function PokemonCard({
+    id,
+    name,
+    image,
+    types,
+    isFavorite,
+    onFavorite,
+    onClick,
+}) {
     const mainType = types[0].type.name
     return (
         <div
@@ -30,6 +38,15 @@ export default function PokemonCard({ id, name, image, types, onClick }) {
                 background: `linear-gradient(135deg, ${typeColors[mainType]}, #ffffff)`,
             }}
         >
+            <button
+                className={styles.favoriteBtn}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    onFavorite()
+                }}
+            >
+                {isFavorite ? "★" : "☆"}
+            </button>
             <span className={styles.number}>#{id}</span>
 
             <img

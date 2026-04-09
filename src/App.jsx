@@ -9,6 +9,10 @@ export default function App() {
     const [selectedPokemonData, setSelectedPokemonData] = useState(null)
     const [limit, setLimit] = useState(50)
     const [pokemonDescription, setPokemonDescription] = useState("")
+    const [favorites, setFavorites] = useState(() => {
+        const saved = localStorage.getItem("favorites")
+        return saved ? JSON.parse(saved) : []
+    })
     const typeColors = {
         fire: "#f08030",
         water: "#6890f0",
@@ -30,6 +34,22 @@ export default function App() {
         steel: "#b8b8d0",
     }
 
+    const filteredPokemons = pokemons.filter((pokemon) =>
+        pokemon.name.toLowerCase().includes(search.toLowerCase()),
+    )
+    const mainType = selectedPokemonData?.types?.[0]?.type?.name || "normal"
+
+    const toggleFavorite = (pokemonName) => {
+        setFavorites((prevFavorites) => {
+            const exists = prevFavorites.includes(pokemonName)
+
+            const updatedFavorites = exists
+                ? prevFavorites.filter((name) => name !== pokemonName)
+                : [...prevFavorites, pokemonName]
+            localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
+            return updatedFavorites
+        })
+    }
     useEffect(() => {
         async function fetchPokemons() {
             const res = await fetch(
@@ -57,25 +77,21 @@ export default function App() {
                 .then((data) => {
                     setSelectedPokemonData(data)
                 })
-        }
-        fetch(
-            `https://pokeapi.co/api/v2/pokemon-species/${selectedPokemonName}`,
-        )
-            .then((res) => res.json())
-            .then((data) => {
-                const entry = data.flavor_text_entries.find(
-                    (item) => item.language.name === "en",
-                )
-                setPokemonDescription(
-                    entry ? entry.flavor_text.replace(/\f|\n/g, " ") : "",
-                )
-            })
-    }, [selectedPokemonName])
 
-    const filteredPokemons = pokemons.filter((pokemon) =>
-        pokemon.name.toLowerCase().includes(search.toLowerCase()),
-    )
-    const mainType = selectedPokemonData?.types?.[0]?.type?.name || "normal"
+            fetch(
+                `https://pokeapi.co/api/v2/pokemon-species/${selectedPokemonName}`,
+            )
+                .then((res) => res.json())
+                .then((data) => {
+                    const entry = data.flavor_text_entries.find(
+                        (item) => item.language.name === "en",
+                    )
+                    setPokemonDescription(
+                        entry ? entry.flavor_text.replace(/\f|\n/g, " ") : "",
+                    )
+                })
+        }
+    }, [selectedPokemonName])
     return (
         <div className="app">
             {/* LEFT */}
@@ -98,6 +114,8 @@ export default function App() {
                                 name={pokemon.name}
                                 image={pokemon.sprites.front_default}
                                 types={pokemon.types}
+                                isFavorite={favorites.includes(pokemon.name)}
+                                onFavorite={() => toggleFavorite(pokemon.name)}
                                 onClick={() =>
                                     setSelectedPokemonName(pokemon.name)
                                 }
@@ -128,7 +146,11 @@ export default function App() {
                                     selectedPokemonData.name.slice(1)}
                             </h2>
                             <button
-                                onClick={() => setSelectedPokemonData(null)}
+                                onClick={() => {
+                                    setSelectedPokemonData(null)
+                                    setSelectedPokemonName(null)
+                                    setPokemonDescription("")
+                                }}
                             >
                                 X
                             </button>
