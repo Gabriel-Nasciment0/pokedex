@@ -40,6 +40,7 @@ function normalizeDescription(text = "") {
 }
 
 export default function App() {
+    //variaveis
     const [catalog, setCatalog] = useState([])
     const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
     const [search, setSearch] = useState("")
@@ -61,7 +62,7 @@ export default function App() {
     }, [filtered, visibleCount])
 
     const hasMore = visibleCount < filtered.length
-
+    //useEffects
     // 🔹 carregar lista
     useEffect(() => {
         async function fetchData() {
@@ -87,7 +88,7 @@ export default function App() {
 
     // 🔹 scroll infinito
     useEffect(() => {
-        if (!hasMore) return
+        if (!hasMore || selectedPokemon) return
 
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -96,18 +97,16 @@ export default function App() {
                 }
             },
             {
-                root: leftRef.current,
-                rootMargin: "100px",
+                root: null,
+                rootMargin: "200px",
             },
         )
 
-        if (loadMoreRef.current) {
-            observer.observe(loadMoreRef.current)
-        }
+        const el = loadMoreRef.current
+        if (el) observer.observe(el)
 
         return () => observer.disconnect()
-    }, [hasMore])
-
+    }, [hasMore, selectedPokemon])
     // 🔹 carregar detalhes dos cards
     useEffect(() => {
         const missing = visible.filter((p) => !detailsCache[p.name])
@@ -128,8 +127,20 @@ export default function App() {
                 return next
             })
         })
-    }, [visible])
+    }, [visible, detailsCache])
 
+    useEffect(() => {
+        if (selectedPokemon) {
+            document.body.style.overflow = "hidden"
+        } else {
+            document.body.style.overflow = "auto"
+        }
+
+        return () => {
+            document.body.style.overflow = "auto"
+        }
+    }, [selectedPokemon])
+    //Funcoes
     // 🔹 selecionar pokemon
     async function handleSelect(name) {
         const [p, s] = await Promise.all([
