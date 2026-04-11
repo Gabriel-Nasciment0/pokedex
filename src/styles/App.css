@@ -96,9 +96,10 @@ body {
 
 /* HEADER */
 .detailHeader {
+    position: relative;
     padding: 20px;
     text-align: center;
-    position: relative;
+    backdrop-filter: blur(10px);
     min-height: 260px;
     flex: 0 0 auto;
 }
@@ -108,11 +109,29 @@ body {
     margin-top: 40px;
 }
 
-.detailHeader img {
-    width: 140px;
+.detailHeader img:first-of-type {
+    position: relative;
+    z-index: 2;
+
+    width: 160px;
     margin-top: 10px;
 }
 
+.pokeballBg {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+
+    width: 200px;
+
+    opacity: 0.2;
+
+    filter: blur(2px);
+    transform: rotate(-25deg) scale(1.1);
+
+    pointer-events: none;
+    z-index: 1;
+}
 /* BOTÕES */
 .closeBtn {
     position: absolute;

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import PokemonCard from "./components/PokemonCard"
+import pokeball from "./assets/PokeBalImg.png"
 import "./styles/App.css"
 
 const PAGE_SIZE = 24
@@ -152,9 +153,9 @@ export default function App() {
             ),
         ])
 
-        const entry = s.flavor_text_entries.find(
-            (e) => e.language.name === "en",
-        )
+        const entry =
+            s.flavor_text_entries.find((e) => e.language.name === "pt") ||
+            s.flavor_text_entries.find((e) => e.language.name === "en")
 
         setSelectedPokemon(p)
         setDescription(
@@ -222,7 +223,7 @@ export default function App() {
                                 className="closeBtn"
                                 onClick={() => setSelectedPokemon(null)}
                             >
-                                ←
+                                x
                             </button>
 
                             <span className="detailNumber">
@@ -247,10 +248,16 @@ export default function App() {
 
                             <img
                                 src={
-                                    selectedPokemon.sprites.other[
+                                    selectedPokemon.sprites.other?.[
                                         "official-artwork"
-                                    ].front_default
+                                    ]?.front_default ||
+                                    selectedPokemon.sprites.front_default
                                 }
+                            />
+
+                            <img
+                                className="pokeballBg"
+                                src={pokeball}
                             />
                         </div>
 
