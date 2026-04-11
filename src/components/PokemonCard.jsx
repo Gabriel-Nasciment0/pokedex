@@ -1,4 +1,5 @@
 import styles from "./PokemonCard.module.css"
+
 const typeColors = {
     fire: "#f08030",
     water: "#6890f0",
@@ -20,56 +21,82 @@ const typeColors = {
     steel: "#b8b8d0",
 }
 
+function capitalize(text = "") {
+    if (!text) return ""
+    return text.charAt(0).toUpperCase() + text.slice(1)
+}
+
 export default function PokemonCard({
     id,
     name,
     image,
-    types,
+    types = [],
+    loading = false,
     isFavorite,
     onFavorite,
     onClick,
 }) {
-    const mainType = types[0].type.name
+    const mainType = types?.[0]?.type?.name || "normal"
+    const hasImage = Boolean(image)
+
     return (
         <div
             className={styles.card}
-            onClick={onClick}
+            onClick={loading ? undefined : onClick}
             style={{
-                background: `linear-gradient(135deg, ${typeColors[mainType]}, #ffffff)`,
+                background: `linear-gradient(135deg, ${typeColors[mainType]}18, #ffffff)`,
             }}
         >
             <button
+                type="button"
                 className={styles.favoriteBtn}
                 onClick={(e) => {
                     e.stopPropagation()
-                    onFavorite()
+                    if (!loading) onFavorite?.()
                 }}
+                aria-label={
+                    isFavorite
+                        ? "Remover dos favoritos"
+                        : "Adicionar aos favoritos"
+                }
             >
                 {isFavorite ? "★" : "☆"}
             </button>
-            <span className={styles.number}>#{id}</span>
 
-            <img
-                src={image}
-                alt={name}
-            />
+            <span className={styles.number}>#{id ?? "..."}</span>
+
+            {loading ? (
+                <div className={styles.imagePlaceholder}>Carregando...</div>
+            ) : hasImage ? (
+                <img
+                    src={image}
+                    alt={name}
+                />
+            ) : (
+                <div className={styles.imagePlaceholder}>Sem imagem</div>
+            )}
 
             <p className={styles.name}>
-                {name.charAt(0).toUpperCase() + name.slice(1)}
+                {loading ? "Carregando..." : capitalize(name)}
             </p>
 
             <div className={styles.types}>
-                {types.map((type, index) => (
-                    <span
-                        key={index}
-                        style={{
-                            background: typeColors[type.type.name],
-                        }}
-                        className={styles.type}
-                    >
-                        {type.type.name}
-                    </span>
-                ))}
+                {loading ? (
+                    <span className={styles.type}>...</span>
+                ) : (
+                    types.map((type) => (
+                        <span
+                            key={type.slot}
+                            style={{
+                                background:
+                                    typeColors[type.type.name] ?? "#777",
+                            }}
+                            className={styles.type}
+                        >
+                            {type.type.name}
+                        </span>
+                    ))
+                )}
             </div>
         </div>
     )
