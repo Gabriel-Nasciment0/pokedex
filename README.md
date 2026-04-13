@@ -1,16 +1,54 @@
-# React + Vite
+# Pokédex Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma Pokédex interativa construída com React, consumindo a PokéAPI, com foco em performance, UX e organização de dados.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=000)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Finalizado-success?style=for-the-badge)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Demonstração
 
-## React Compiler
+🔗 [Acessar projeto online](https://gabriel-nasciment0.github.io/pokedex/)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Imagens
 
-## Expanding the ESLint configuration
+### Desktop
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Preview Web](./src/assets/previewWeb.png)
+
+### Mobile
+
+![Preview Mobile](./src/assets/previewMobile.png)
+![Preview Mobile 2](./src/assets/previewMobile2.png)
+
+## Tecnologias
+
+- React
+- JavaScript (ES6+)
+- CSS3
+- PokéAPI
+- Intersection Observer API
+
+## Funcionalidades
+
+- Listagem de Pokémon com scroll infinito
+- Busca em tempo real
+- Detalhes completos de cada Pokémon
+- Cache de requisições para melhor performance
+- Interface responsiva para mobile e desktop
+- Layout com painel lateral de detalhes
+- Cards dinâmicos com cores baseadas no tipo do Pokémon
+
+## Responsivo
+
+O layout se adapta para telas menores com um painel de detalhes em formato drawer, mantendo a navegação fluida no celular.
+
+## Como rodar localmente
+
+```bash
+git clone https://github.com/gabriel-nasciment0/pokedex.git
+cd pokedex
+npm install
+npm start
+```
